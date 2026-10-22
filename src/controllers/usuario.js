@@ -1,5 +1,4 @@
 const con = require('../db')
-const { excluir } = require('./evento')
 
 const cadastrar = (req, res) => {
     const { nome, email, senha } = req.body
@@ -33,7 +32,7 @@ const listar = (req, res) => {
     })
 }
 
-const usuario = (req, res) => {
+const excluir = (req, res) => {
     const { id } = req.params
 
     try {

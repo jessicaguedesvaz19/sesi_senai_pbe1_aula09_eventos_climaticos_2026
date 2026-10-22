@@ -1,5 +1,6 @@
 const express = require("express")
 const router = express.Router()
+
 const usuario = require('./controllers/usuario')
 const evento = require('./controllers/evento')
 
@@ -12,7 +13,7 @@ router.get('/usuarios', usuario.listar)
 router.post('/usuarios', usuario.cadastrar)
 router.get('/eventos', evento.listar)
 router.post('/eventos', evento.cadastrar)
-router.delete('/evento/:id', evento.excluir)
-router.delete('/usuario/:id', usuario.excluir)
+router.delete('/eventos/:id', evento.excluir)
+router.delete('/usuarios/:id', usuario.excluir)
 
 module.exports = router
