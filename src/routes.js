@@ -13,6 +13,6 @@ router.post('/usuarios', usuario.cadastrar)
 router.get('/eventos', evento.listar)
 router.post('/eventos', evento.cadastrar)
 router.delete('/evento/:id', evento.excluir)
-
+router.delete('/usuario/:id', usuario.excluir)
 
 module.exports = router

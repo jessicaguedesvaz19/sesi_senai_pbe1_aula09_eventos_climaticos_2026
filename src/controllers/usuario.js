@@ -1,4 +1,5 @@
 const con = require('../db')
+const { excluir } = require('./evento')
 
 const cadastrar = (req, res) => {
     const { nome, email, senha } = req.body
@@ -32,7 +33,30 @@ const listar = (req, res) => {
     })
 }
 
+const usuario = (req, res) => {
+    const { id } = req.params
+
+    try {
+        const query = 'DELETE FROM usuario WHERE id = ?;'
+
+        con.query(query, [id], (err, results) => {
+            if (err) {
+                console.error(err)
+                res.status(500).json({ error: 'Erro ao excluir usuario' })
+            } else if (results.affectedRows === 0) {
+                res.status(404).json({ error: 'Usuario não encontrado' })
+            } else {
+                res.status(200).json({ message: 'Usuario excluído com sucesso' })
+            }
+        })
+    } catch (error) {
+        console.error(error)
+        res.status(400).json({ error: 'Erro ao excluir usuario' })
+    }
+}
+
 module.exports = {
     cadastrar,
-    listar
+    listar,
+    excluir
 }

@@ -50,3 +50,9 @@ npm run dev
  - Listar Usuario:
 
  ![listarUsuarios](./listar_usuarios.png)
+
+ - Excluir Usuario: 
+
+ ![excluirUsuarios](./excluir_usuarios.png)
+
+ - Atualizar Usuario: 
