@@ -12,6 +12,7 @@ router.get('/usuarios', usuario.listar)
 router.post('/usuarios', usuario.cadastrar)
 router.get('/eventos', evento.listar)
 router.post('/eventos', evento.cadastrar)
+router.delete('/evento/:id', evento.excluir)
 
 
 module.exports = router

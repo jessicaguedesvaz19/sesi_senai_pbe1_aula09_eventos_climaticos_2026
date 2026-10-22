@@ -37,6 +37,12 @@ npm run dev
 
 ![listarEventos](./listar_eventos.png)
 
+ - Excluir Evento:
+
+![excluirEventos](./excluir_eventos.png)
+
+ - Atualizar Evento:
+
  - Cadastrar Usuario:
 
 ![cadastrarUsuarios](./cadastrar_usuarios.png)
