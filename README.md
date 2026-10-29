@@ -4,11 +4,11 @@
 
 ### MER DER Conceitual
 
-![MER/DER](./mer_der_conceitual.png)
+![MER/DER](./docs/mer_der_conceitual.png)
 
 ### UML - DC (Diagrama de Classes)
 
-![UML/DC](./uml_dc.png)
+![UML/DC](./docs/uml_dc.png)
 
 
 ## Tecnologias utilizadas:
