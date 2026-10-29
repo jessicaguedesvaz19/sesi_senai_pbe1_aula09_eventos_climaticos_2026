@@ -1,28 +1,28 @@
 const con = require('../db')
 
 const cadastrar = (req, res) => {
-    const { usuarioId, cidade, tipoEvento, temperaturaMaxima, data, nivelImpacto } = req.body
+    const { usuarioId, cidade, tipoEvento, temperaturaMaxima, nivelImpacto } = req.body
     try {
-        const query = 'INSERT INTO evento (usuarioId, cidade, tipoEvento, temperaturaMaxima, data, nivelImpacto) VALUES (?, ?, ?, ?, ?, ?);'
-        con.query(query, [usuarioId, cidade, tipoEvento, temperaturaMaxima, data, nivelImpacto], (err, results) => {
+        const sql = 'INSERT INTO evento (usuarioId, cidade, tipoEvento, temperaturaMaxima, nivelImpacto) VALUES (?, ?, ?, ?, ?);'
+        con.query(sql, [usuarioId, cidade, tipoEvento, temperaturaMaxima, nivelImpacto], (err, results) => {
             if (err) {
                 console.error(err)
                 res.status(500).json({ error: 'Erro ao cadastrar evento' })
             } else {
-                const novoEvento = req.body
-                novoEvento.id = results.insertId
-                res.status(201).json({ message: 'Evento cadastrado com sucesso', user: novoEvento })
+                const novoevento = req.body
+                novoevento.id = results.insertId
+                res.status(201).json({ message: 'Evento cadastrado com sucesso', event: novoevento })
             }
         })
     } catch (error) {
         console.error(error)
-        res.status(400).json({ error: 'Erro ao cadastrar evento', details: 'Informe { cidade, tipoEvento, temperaturaMaxima, data, nivelImpacto }' })
+        res.status(400).json({ error: 'Erro ao cadastrar evento', details: 'Informe { usuarioId, cidade, tipoEvento, temperaturaMaxima, nivelImpacto }' })
     }
 }
 
 const listar = (req, res) => {
-    const query = 'SELECT * FROM evento;'
-    con.query(query, (err, results) => {
+    const sql = 'SELECT * FROM evento;'
+    con.query(sql, (err, results) => {
         if (err) {
             console.error(err)
             res.status(500).json({ error: 'Erro ao buscar eventos' })
@@ -32,30 +32,74 @@ const listar = (req, res) => {
     })
 }
 
+const alterar = (req, res) => {
+    const id = Number(req.params.id)
+    const chaves = Object.keys(req.body)
+    let campos = ''
+    const colunas = []
+    chaves.forEach((chave) => {
+        campos += `${chave} = ?,`
+        colunas.push(req.body[chave])
+    })
+    campos = campos.slice(0, -1) //Remove a ultima virgula
+    colunas.push(id)
+    const sql = `UPDATE evento SET ${campos} WHERE id = ?;`
+    con.query(sql, colunas, (err, results) => {
+        if (err) {
+            console.error(err)
+            res.status(500).json({ erro: 'Erro ao alterar evento', msg: err.sqlMessage })
+        } else {
+            if (results.affectedRows == 1)
+                res.json("Registro alterado com sucesso")
+            else
+                res.status(404).json({ msg: "Nada alerado no banco de dados", erro: results })
+        }
+    })
+}
+
 const excluir = (req, res) => {
-    const { id } = req.params
+    const id = Number(req.params.id)
+    const sql = 'DELETE FROM evento WHERE id = ?;'
+    con.query(sql, [id], (err, results) => {
+        if (err) {
+            console.error(err)
+            res.status(500).json({ erro: 'Erro ao excluir evento', msg: err.sqlMessage })
+        } else {
+            if (results.affectedRows == 1)
+                res.json("Registro excluído com sucesso")
+            else
+                res.status(404).json({ msg: "Nada alerado no banco de dados", erro: results })
+        }
+    })
+}
 
-    try {
-        const query = 'DELETE FROM evento WHERE id = ?;'
-
-        con.query(query, [id], (err, results) => {
-            if (err) {
-                console.error(err)
-                res.status(500).json({ error: 'Erro ao excluir evento' })
-            } else if (results.affectedRows === 0) {
-                res.status(404).json({ error: 'Evento não encontrado' })
-            } else {
-                res.status(200).json({ message: 'Evento excluído com sucesso' })
-            }
-        })
-    } catch (error) {
-        console.error(error)
-        res.status(400).json({ error: 'Erro ao excluir evento' })
-    }
+const resumo = (req, res) => {
+    const sql1 = 'SELECT AVG(temperaturaMaxima) as "Temperaturas medias" FROM evento;'
+    const sql2 = 'SELECT * FROM evento;'
+    con.query(sql1, (err, results) => {
+        if (err) {
+            console.error(err)
+            res.status(500).json({ error: 'Erro ao buscar medias' })
+        } else {
+            const resposta = {}
+            resposta.media = results
+            con.query(sql2, (err, results) => {
+                if (err) {
+                    console.error(err)
+                    res.status(500).json({ error: 'Erro ao buscar eventos' })
+                }else{
+                    resposta.eventos = results
+                    res.json(resposta)
+                }
+            })
+        }
+    })
 }
 
 module.exports = {
     cadastrar,
     listar,
-    excluir
+    alterar,
+    excluir,
+    resumo
 }

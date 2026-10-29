@@ -8,12 +8,17 @@ const rotaInicial = (req,res) => {
     res.json("Back-end respondendo")
 }
 
-router.get('/', rotaInicial)
-router.get('/usuarios', usuario.listar)
+router.get('/',rotaInicial)
+router.post('/usuarios/login', usuario.login)
 router.post('/usuarios', usuario.cadastrar)
-router.get('/eventos', evento.listar)
-router.post('/eventos', evento.cadastrar)
-router.delete('/eventos/:id', evento.excluir)
+router.get('/usuarios', usuario.listar)
+router.put('/usuarios/:id', usuario.alterar)
 router.delete('/usuarios/:id', usuario.excluir)
+
+router.post('/eventos', evento.cadastrar)
+router.get('/eventos', evento.listar)
+router.patch('/eventos/:id', evento.alterar)
+router.delete('/eventos/:id', evento.excluir)
+router.get('/eventos/resumo', evento.resumo)
 
 module.exports = router

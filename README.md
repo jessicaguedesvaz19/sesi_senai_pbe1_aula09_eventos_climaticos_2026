@@ -29,30 +29,49 @@ npm run dev
 
 ## Print dos testes:
 
+### Eventos
+
  - Cadastrar Evento:
 
-![cadastrarEventos](./cadastrar_eventos.png)
+![cadastrarEventos](./docs/cadastrar_eventos.png)
 
  - Listar Evento:
 
-![listarEventos](./listar_eventos.png)
+![listarEventos](./docs/listar_eventos.png)
 
  - Excluir Evento:
 
-![excluirEventos](./excluir_eventos.png)
+![excluirEventos](./docs/excluir_eventos.png)
 
  - Atualizar Evento:
 
+ ![atualizarEvento](./docs/atualizar_eventos.png)
+
+ - Resumo com a média de temperaturas:
+
+ ![resumoEvento](./docs/resumo.png)
+
+ ### Usuários
+
  - Cadastrar Usuario:
 
-![cadastrarUsuarios](./cadastrar_usuarios.png)
+![cadastrarUsuarios](./docs/cadastrar_usuarios.png)
 
  - Listar Usuario:
 
- ![listarUsuarios](./listar_usuarios.png)
+ ![listarUsuarios](./docs/listar_usuarios.png)
 
  - Excluir Usuario: 
 
- ![excluirUsuarios](./excluir_usuarios.png)
+ ![excluirUsuarios](./docs/excluir_usuarios.png)
 
  - Atualizar Usuario: 
+
+ ![atualizarUsuarios](./docs/atualizar_usuarios.png)
+
+ - Login: 
+
+ ![loginUsuarios](./docs/resumo.png)
+
+
+
